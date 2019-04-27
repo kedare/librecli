@@ -6,12 +6,10 @@ import (
 	"github.com/apcera/termtables"
 	"github.com/kedare/librecli/client"
 	"github.com/kedare/librecli/colorizers"
-	"github.com/kedare/librecli/resolvers"
 	"github.com/kedare/librecli/entities"
+	"github.com/kedare/librecli/resolvers"
 	"github.com/spf13/cobra"
 )
-
-
 
 func ListBGPCounters(cmd *cobra.Command, args []string) {
 	base := client.BuildAPIClient()

@@ -1,6 +1,5 @@
 package entities
 
-
 // BGPSession represents a BGP session as it is returned by the LibreNMS API
 type BGPSession struct {
 	BGPPeerID                  int    `json:"bgpPeer_id"`
@@ -33,14 +32,14 @@ type BGPCounters struct {
 	BGPPeerIdentifier    string `json:"bgpPeerIdentifier"`
 	AFI                  string `json:"afi"`
 	SAFI                 string `json:"safi"`
-	AcceptedPrefixes     int  `json:"AcceptedPrefixes"`
-	DeniedPrefixes       int  `json:"DeniedPrefixes"`
-	PrefixAdminLimit     int  `json:"PrefixAdminLimit"`
-	PrefixThreshold      int  `json:"PrefixThreshold"`
-	PrefixClearThreshold int  `json:"PrefixClearThreshold"`
-	AdvertisedPrefixes   int  `json:"AdvertisedPrefixes"`
-	SuppressedPrefixes   int  `json:"SupressedPrefixes"`
-	WithdrawnPrefixes    int  `json:"WithdrawnPrefixes"`
+	AcceptedPrefixes     int    `json:"AcceptedPrefixes"`
+	DeniedPrefixes       int    `json:"DeniedPrefixes"`
+	PrefixAdminLimit     int    `json:"PrefixAdminLimit"`
+	PrefixThreshold      int    `json:"PrefixThreshold"`
+	PrefixClearThreshold int    `json:"PrefixClearThreshold"`
+	AdvertisedPrefixes   int    `json:"AdvertisedPrefixes"`
+	SuppressedPrefixes   int    `json:"SupressedPrefixes"`
+	WithdrawnPrefixes    int    `json:"WithdrawnPrefixes"`
 }
 
 type ListBGPCountersResponse struct {

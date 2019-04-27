@@ -32,4 +32,3 @@ type Port struct {
 	OperStatus       string `json:"ifOperStatus"`
 	AdminStatus      string `json:"ifAdminStatus"`
 }
-

@@ -9,7 +9,6 @@ import (
 	"gopkg.in/h2non/gentleman.v2"
 )
 
-
 func GetASHolderByASN(asn int) string {
 	if asn > 64512 && asn < 65535 {
 		return "Private ASN"

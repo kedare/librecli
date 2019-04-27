@@ -21,5 +21,3 @@ func ColorizeBGPPeerStatus(status string) string {
 		return fmt.Sprint(Bold(Red(status)))
 	}
 }
-
-

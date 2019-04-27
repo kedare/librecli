@@ -1,6 +1,5 @@
 package entities
 
-
 type FDBPort struct {
 	FDBPortID  int    `json:"ports_fdb_id"`
 	PortID     int    `json:"port_id"`
