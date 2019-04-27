@@ -22,7 +22,7 @@ $ librecli bgp peers list <Device name or remote ASN>
 | my-router-1     | 0.0.0.0     | 191.9.41.6  | 65000   | Private ASN  | established | running     |
 +-----------------+-------------+-------------+---------+--------------+-------------+-------------+ 
 
-$ librecli bgp peers counter
+$ librecli bgp peers counters <Device Name>
 
 +-----------------------+-------------------+--------------+------------+-----------+---------+                                                                             
 | Device                | Peer IP           | Accepted Pfx | Denied Pfx | Pfx Thrsd | Adv Pfx |                                                                             
