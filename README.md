@@ -1,6 +1,6 @@
 # LibreCLI
 
-LibreCLI is a small CLI tool that allows you to interact with LireNMS.
+LibreCLI is a small CLI tool that allows you to interact with LibreNMS.
 
 You need to specify the following environment variables to be able to use it:
 
@@ -34,7 +34,7 @@ $ librecli bgp peers counter
 $ librecli fdb lookup [MAC address]
 
 Should display all the FDB entries containing the MAC address, I need to update my LibreNMS to test it :)
+```
 
 Much more commands to come, PR are welcome of course.
 
-```
