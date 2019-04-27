@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/kedare/librecli/client"
 	"github.com/kedare/librecli/entities"
+	"github.com/kedare/librecli/network"
 	"gopkg.in/h2non/gentleman.v2"
 )
 
@@ -19,7 +19,7 @@ func GetASHolderByASN(asn int) string {
 		req.Path("/data/as-overview/data.json")
 		req.AddQuery("resource", fmt.Sprint(asn))
 
-		res, err := req.Send()
+		res, err := network.RunRequestIfNotCached(fmt.Sprintf("ripe.asn:%v", asn), req)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -34,10 +34,10 @@ func GetASHolderByASN(asn int) string {
 }
 
 func GetDeviceByID(id int) entities.Device {
-	base := client.BuildAPIClient()
+	base := network.BuildAPIClient()
 	req := base.Request()
 	req.Path(fmt.Sprintf("/api/v0/devices/%v", id))
-	res, err := req.Send()
+	res, err := network.RunRequestIfNotCached(fmt.Sprintf("nms.device:%v", id), req)
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/apcera/termtables"
-	"github.com/kedare/librecli/client"
 	"github.com/kedare/librecli/colorizers"
 	"github.com/kedare/librecli/entities"
+	"github.com/kedare/librecli/network"
 	"github.com/kedare/librecli/resolvers"
 	"github.com/spf13/cobra"
 )
 
 func ListBGPCounters(cmd *cobra.Command, args []string) {
-	base := client.BuildAPIClient()
+	base := network.BuildAPIClient()
 	req := base.Request()
 	req.Path("/api/v0/routing/bgp/cbgp")
 

@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/apcera/termtables"
-	"github.com/kedare/librecli/client"
 	"github.com/kedare/librecli/entities"
+	"github.com/kedare/librecli/network"
 	"github.com/kedare/librecli/resolvers"
 	"github.com/spf13/cobra"
 )
 
 func LookupFDB(cmd *cobra.Command, args []string) {
-	base := client.BuildAPIClient()
+	base := network.BuildAPIClient()
 	req := base.Request()
 	req.Path(fmt.Sprintf("/api/v0/resources/fdb/%v", args[0]))
 

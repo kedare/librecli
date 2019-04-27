@@ -2,7 +2,9 @@ package main
 
 import (
 	"github.com/kedare/librecli/cmd"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"os"
 )
 
 var cmdRoot = &cobra.Command{Use: "librecli"}
@@ -36,6 +38,11 @@ var cmdFDBLookup = &cobra.Command{
 	Short: "Look for a MAC in the centralized FDB table",
 	Run:   cmd.LookupFDB,
 	Args:  cobra.MinimumNArgs(1),
+}
+
+func init() {
+	log.SetOutput(os.Stdout)
+	log.SetLevel(log.WarnLevel)
 }
 
 func main() {
