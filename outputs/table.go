@@ -6,6 +6,7 @@ import (
 )
 
 func OutputAsTable(order []string, data []map[string]string) {
+	termtables.EnableUTF8PerLocale()
 	table := termtables.CreateTable()
 
 	orderInterface := []interface{}{}
