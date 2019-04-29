@@ -1,10 +1,12 @@
 package cmd
 
 import (
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
 var OutputFormat string
+var Verbose bool
 
 var cmdRoot = &cobra.Command{Use: "librecli"}
 
@@ -17,15 +19,17 @@ var cmdBGPPeers = &cobra.Command{
 }
 
 var cmdBGPPeersList = &cobra.Command{
-	Use:   "list <peer asn or device name>",
-	Short: "List BGP peers",
-	Run:   ListBGPPeers,
+	Use:    "list <peer asn or device name>",
+	Short:  "List BGP peers",
+	PreRun: setDebug,
+	Run:    ListBGPPeers,
 }
 
 var cmdBGPPeersCounters = &cobra.Command{
-	Use:   "counters <device name>",
-	Short: "List BGP counters",
-	Run:   ListBGPCounters,
+	Use:    "counters <device name>",
+	Short:  "List BGP counters",
+	PreRun: setDebug,
+	Run:    ListBGPCounters,
 }
 
 var cmdFDB = &cobra.Command{
@@ -33,10 +37,17 @@ var cmdFDB = &cobra.Command{
 }
 
 var cmdFDBLookup = &cobra.Command{
-	Use:   "lookup [MAC address]",
-	Short: "Look for a MAC in the centralized FDB table",
-	Run:   LookupFDB,
-	Args:  cobra.MinimumNArgs(1),
+	Use:    "lookup [MAC address]",
+	Short:  "Look for a MAC in the centralized FDB table",
+	PreRun: setDebug,
+	Run:    LookupFDB,
+	Args:   cobra.MinimumNArgs(1),
+}
+
+func setDebug(cmd *cobra.Command, args []string) {
+	if Verbose {
+		log.SetLevel(log.DebugLevel)
+	}
 }
 
 func Setup() {
@@ -50,5 +61,7 @@ func Setup() {
 	cmdFDB.AddCommand(cmdFDBLookup)
 
 	cmdRoot.PersistentFlags().StringVarP(&OutputFormat, "format", "f", "table", "Output format: table|list|json")
+	cmdRoot.PersistentFlags().BoolVarP(&Verbose, "verbose", "V", false, "Enable verbose mode")
+
 	cmdRoot.Execute()
 }
