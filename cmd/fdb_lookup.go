@@ -3,9 +3,9 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/apcera/termtables"
 	"github.com/kedare/librecli/entities"
 	"github.com/kedare/librecli/network"
+	"github.com/kedare/librecli/outputs"
 	"github.com/kedare/librecli/resolvers"
 	"github.com/spf13/cobra"
 )
@@ -22,14 +22,16 @@ func LookupFDB(cmd *cobra.Command, args []string) {
 
 	fdbLookupResponse := entities.FDBLookupResponse{}
 	err = json.Unmarshal([]byte(res.String()), &fdbLookupResponse)
-	table := termtables.CreateTable()
-	table.AddHeaders("Device", "Port", "VLAN")
+
+	headers := []string{"Device", "Port", "VLAN"}
+	var data []map[string]string
 
 	for _, fdbPort := range fdbLookupResponse.FDBPorts {
-		table.AddRow(
-			resolvers.GetDeviceByID(fdbPort.DeviceID).Hostname,
-			fdbPort.PortID,
-			fdbPort.VlanID)
+		data = append(data, map[string]string{
+			"Device": resolvers.GetDeviceByID(fdbPort.DeviceID).Hostname,
+			"Port":   fmt.Sprint(fdbPort.PortID),
+			"VLAN":   fmt.Sprint(fdbPort.VlanID),
+		})
 	}
-	fmt.Println(table.Render())
+	outputs.OutputAs(OutputFormat, headers, data)
 }

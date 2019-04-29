@@ -5,19 +5,19 @@ import (
 	"github.com/apcera/termtables"
 )
 
-func OutputAsTable(data []map[string]string) {
-	headers := []interface{}{}
-	for headerFromData := range data[0] {
-		headers = append(headers, headerFromData)
-	}
-
+func OutputAsTable(order []string, data []map[string]string) {
 	table := termtables.CreateTable()
-	table.AddHeaders(headers...)
+
+	orderInterface := []interface{}{}
+	for _, orderItem := range order {
+		orderInterface = append(orderInterface, orderItem)
+	}
+	table.AddHeaders(orderInterface...)
 
 	for _, row := range data {
 		dataInterface := []interface{}{}
-		for _, col := range headers {
-			dataInterface = append(dataInterface, row[col.(string)])
+		for _, col := range order {
+			dataInterface = append(dataInterface, row[col])
 
 		}
 		table.AddRow(dataInterface...)

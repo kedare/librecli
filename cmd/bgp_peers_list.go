@@ -44,6 +44,7 @@ func ListBGPPeers(cmd *cobra.Command, args []string) {
 	listBgpResponse := entities.ListBGPResponse{}
 	err = json.Unmarshal([]byte(res.String()), &listBgpResponse)
 
+	headers := []string{"Device", "Local IP", "Peer IP", "Peer AS", "AS Holder", "State", "Admin State"}
 	var data []map[string]string
 
 	for _, bgpSession := range listBgpResponse.BGPSessions {
@@ -58,5 +59,5 @@ func ListBGPPeers(cmd *cobra.Command, args []string) {
 				"Admin State": colorizers.ColorizeBGPPeerAdminStatus(bgpSession.BGPPeerAdminStatus)},
 		)
 	}
-	outputs.OutputAs(OutputFormat, data)
+	outputs.OutputAs(OutputFormat, headers, data)
 }

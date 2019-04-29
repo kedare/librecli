@@ -28,6 +28,7 @@ func ListBGPCounters(cmd *cobra.Command, args []string) {
 	listBgpCountersResponse := entities.ListBGPCountersResponse{}
 	err = json.Unmarshal([]byte(res.String()), &listBgpCountersResponse)
 
+	headers := []string{"Device", "Peer IP", "Accepted Pfx", "Denied Pfx", "Pfx Thrsd", "Adv Pfx"}
 	var data []map[string]string
 
 	for _, bgpCounter := range listBgpCountersResponse.BGPCounters {
@@ -41,5 +42,5 @@ func ListBGPCounters(cmd *cobra.Command, args []string) {
 				"Adv Pfx":      colorizers.ShouldBeHigherThan(bgpCounter.AdvertisedPrefixes, 0),
 			})
 	}
-	outputs.OutputAs(OutputFormat, data)
+	outputs.OutputAs(OutputFormat, headers, data)
 }

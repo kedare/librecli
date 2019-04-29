@@ -1,7 +1,7 @@
 package outputs
 
-func OutputAs(format string, data []map[string]string) {
+func OutputAs(format string, order []string, data []map[string]string) {
 	if format == "table" {
-		OutputAsTable(data)
+		OutputAsTable(order, data)
 	}
 }
