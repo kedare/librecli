@@ -6,10 +6,10 @@ import (
 	"gopkg.in/h2non/gentleman.v2"
 	"strconv"
 
-	"github.com/apcera/termtables"
 	"github.com/kedare/librecli/colorizers"
 	"github.com/kedare/librecli/entities"
 	"github.com/kedare/librecli/network"
+	"github.com/kedare/librecli/outputs"
 	"github.com/kedare/librecli/resolvers"
 	"github.com/spf13/cobra"
 )
@@ -43,18 +43,20 @@ func ListBGPPeers(cmd *cobra.Command, args []string) {
 
 	listBgpResponse := entities.ListBGPResponse{}
 	err = json.Unmarshal([]byte(res.String()), &listBgpResponse)
-	table := termtables.CreateTable()
-	table.AddHeaders("Device", "Local IP", "Peer IP", "Peer AS", "AS Holder", "State", "Admin State")
+
+	var data []map[string]string
 
 	for _, bgpSession := range listBgpResponse.BGPSessions {
-		table.AddRow(
-			resolvers.GetDeviceByID(bgpSession.DeviceID).Hostname,
-			bgpSession.BGPLocalAddr,
-			bgpSession.BGPPeerIdentifier,
-			bgpSession.BGPPeerRemoteAS,
-			resolvers.GetASHolderByASN(bgpSession.BGPPeerRemoteAS),
-			colorizers.ColorizeBGPPeerStatus(bgpSession.BGPPeerState),
-			colorizers.ColorizeBGPPeerAdminStatus(bgpSession.BGPPeerAdminStatus))
+		data = append(data,
+			map[string]string{
+				"Device":      resolvers.GetDeviceByID(bgpSession.DeviceID).Hostname,
+				"Local IP":    bgpSession.BGPLocalAddr,
+				"Peer IP":     bgpSession.BGPPeerIdentifier,
+				"Peer AS":     fmt.Sprint(bgpSession.BGPPeerRemoteAS),
+				"AS Holder":   resolvers.GetASHolderByASN(bgpSession.BGPPeerRemoteAS),
+				"State":       colorizers.ColorizeBGPPeerStatus(bgpSession.BGPPeerState),
+				"Admin State": colorizers.ColorizeBGPPeerAdminStatus(bgpSession.BGPPeerAdminStatus)},
+		)
 	}
-	fmt.Println(table.Render())
+	outputs.OutputAs(OutputFormat, data)
 }
