@@ -29,7 +29,7 @@ func LookupFDB(cmd *cobra.Command, args []string) {
 	for _, fdbPort := range fdbLookupResponse.FDBPorts {
 		data = append(data, map[string]string{
 			"Device": resolvers.GetDeviceByID(fdbPort.DeviceID).Hostname,
-			"Port":   fmt.Sprint(fdbPort.PortID),
+			"Port":   resolvers.GetPortByID(fdbPort.PortID).Name,
 			"VLAN":   fmt.Sprint(fdbPort.VlanID),
 		})
 	}
