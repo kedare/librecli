@@ -3,10 +3,10 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/apcera/termtables"
 	"github.com/kedare/librecli/colorizers"
 	"github.com/kedare/librecli/entities"
 	"github.com/kedare/librecli/network"
+	"github.com/kedare/librecli/outputs"
 	"github.com/kedare/librecli/resolvers"
 	"github.com/spf13/cobra"
 )
@@ -27,17 +27,20 @@ func ListBGPCounters(cmd *cobra.Command, args []string) {
 
 	listBgpCountersResponse := entities.ListBGPCountersResponse{}
 	err = json.Unmarshal([]byte(res.String()), &listBgpCountersResponse)
-	table := termtables.CreateTable()
-	table.AddHeaders("Device", "Peer IP", "Accepted Pfx", "Denied Pfx", "Pfx Thrsd", "Adv Pfx")
+
+	headers := []string{"Device", "Peer IP", "Accepted Pfx", "Denied Pfx", "Pfx Thrsd", "Adv Pfx"}
+	var data []map[string]string
 
 	for _, bgpCounter := range listBgpCountersResponse.BGPCounters {
-		table.AddRow(
-			resolvers.GetDeviceByID(bgpCounter.DeviceID).Hostname,
-			bgpCounter.BGPPeerIdentifier,
-			colorizers.ShouldBeHigherThan(bgpCounter.AcceptedPrefixes, 0),
-			colorizers.ShouldBeLowerThan(bgpCounter.DeniedPrefixes, 1),
-			bgpCounter.PrefixThreshold,
-			colorizers.ShouldBeHigherThan(bgpCounter.AdvertisedPrefixes, 0))
+		data = append(data,
+			map[string]string{
+				"Device":       resolvers.GetDeviceByID(bgpCounter.DeviceID).Hostname,
+				"Peer IP":      bgpCounter.BGPPeerIdentifier,
+				"Accepted Pfx": colorizers.ShouldBeHigherThan(bgpCounter.AcceptedPrefixes, 0),
+				"Denied Pfx":   colorizers.ShouldBeLowerThan(bgpCounter.DeniedPrefixes, 1),
+				"Pfx Thrsd":    fmt.Sprint(bgpCounter.PrefixThreshold),
+				"Adv Pfx":      colorizers.ShouldBeHigherThan(bgpCounter.AdvertisedPrefixes, 0),
+			})
 	}
-	fmt.Println(table.Render())
+	outputs.OutputAs(OutputFormat, headers, data)
 }
