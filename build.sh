@@ -11,4 +11,4 @@ fi
 DATEVERSION=$(date +"%y.%m.%d")
 VERSION="$DATEVERSION.$REVISION-$SUFFIX"
 
-go build -ldflags "-X main.version=$VERSION"
+go build -v -ldflags "-X main.version=$VERSION"

@@ -3,3 +3,5 @@ langage: go
 go:
   - "1.12"
 
+script:
+  - "bash build.sh"
