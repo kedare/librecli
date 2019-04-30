@@ -47,3 +47,11 @@ type ListBGPCountersResponse struct {
 	BGPCounters []BGPCounters `json:"bgp_counters"`
 	Count       int           `json:"count"`
 }
+
+type ASData struct {
+	Holder string `json:"holder"`
+}
+
+type ASInfoResponse struct {
+	Data ASData `json:"data"`
+}
