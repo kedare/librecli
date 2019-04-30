@@ -18,14 +18,25 @@ LIBRECLI_TOKEN = Your token
   -V, --verbose         Enable verbose mode
 
 
-$ librecli bgp peers list <Device name or remote ASN>
-
-$ librecli bgp peers counters <Device Name>
-
+// Supported
+$ librecli bgp peers list <hostname or remote ASN>
+$ librecli bgp peers counters <hostname>
 $ librecli fdb lookup [MAC address]
-
 $ librecli ipv4 lookup [IPv4 Address]
 
+// TODO
+$ librecli ipsec sa list <hostname>
+$ librecli ipv6 lookup [IPv6 Address]
+$ librecli logs events tail [hostname] [counts]
+$ librecli logs syslogs tail [hostname] [counts]
+$ librecli sensors list <hostname> <Filter>
+$ librecli links list [hostname]
+$ librecli alerts list <filters>
+$ librecli alerts ack [Alert ID...]
+$ librecli alerts mute [Alert ID...]
+$ librecli alerts unmute [Alert ID...]
+$ librecli alerts rules list
+$ librecli inventory list [hostname]
 ```
 
 Much more commands to come, PR are welcome of course.
