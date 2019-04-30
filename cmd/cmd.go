@@ -62,7 +62,9 @@ func setDebug(cmd *cobra.Command, args []string) {
 	}
 }
 
-func Setup() {
+func Setup(version string) {
+	cmdRoot.Version = version
+
 	// Bind Commands
 	cmdRoot.AddCommand(cmdBGP)
 	cmdBGP.AddCommand(cmdBGPPeers)

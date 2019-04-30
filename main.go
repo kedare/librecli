@@ -6,11 +6,13 @@ import (
 	"os"
 )
 
+var version string
+
 func init() {
 	log.SetOutput(os.Stdout)
 	log.SetLevel(log.WarnLevel)
 }
 
 func main() {
-	cmd.Setup()
+	cmd.Setup(version)
 }
