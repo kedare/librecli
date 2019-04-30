@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+export GO111MODULE=on
 REVISION=$(git rev-parse --short HEAD)
 CHANGED=$(git diff-index --name-only HEAD --)
 if [ ! -z "$CHANGED" ]; then
