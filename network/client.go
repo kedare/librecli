@@ -20,7 +20,17 @@ func BuildHTTPClient() *gentleman.Client {
 
 func BuildAPIClient() *gentleman.Client {
 	base := BuildHTTPClient()
+	baseURL := os.Getenv("LIBRECLI_URL")
+	if baseURL == "" {
+		panic("LIBRECLI_URL is not defined")
+	}
 	base.BaseURL(os.Getenv("LIBRECLI_URL"))
+
+	token := os.Getenv("LIBRECLI_TOKEN")
+	if token != "" {
+		panic("LIBRECLI_TOKEN is not defined")
+	}
+
 	base.SetHeader("X-Auth-Token", os.Getenv("LIBRECLI_TOKEN"))
 	return base
 }
