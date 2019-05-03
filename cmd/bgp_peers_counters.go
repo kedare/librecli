@@ -11,6 +11,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// ListBGPCounters is the command handler that will display the counters coming from the BGP sessions.
+// A hostname can be given as parameter to filter by device
 func ListBGPCounters(cmd *cobra.Command, args []string) {
 	base := network.BuildAPIClient()
 	req := base.Request()

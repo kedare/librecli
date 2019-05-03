@@ -10,6 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// LookupFDB is the command handler that will allow you to do a lookup in the centralized FDB table in LibreNMS
+// The paramter to give it is the MAC address (Without any special character) you want to lookup
 func LookupFDB(cmd *cobra.Command, args []string) {
 	base := network.BuildAPIClient()
 	req := base.Request()

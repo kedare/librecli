@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// LookupIPv4 is the command handler that allows you to do a lookup in the centralized IPv4 database
+// The parameter to give is which IP you want to lookup
 func LookupIPv4(cmd *cobra.Command, args []string) {
 	devices := resolvers.GetDevicesByParam("ipv4", args[0])
 	allDevicesInterfaces := []entities.IPv4Address{}

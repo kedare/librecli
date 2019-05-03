@@ -7,8 +7,12 @@ import (
 	"time"
 )
 
+// Cache represent the process-global cache system, used for example to prevent repetitive HTTP requests from being sent to LibreNMS
 var Cache = cache.New(5*time.Minute, 10*time.Minute)
 
+// RunRequestIfNotCached will take a cache key and a request as parameter, it will only run it
+// if the same request hasn't been executed already (checked using cache keys) and returns the
+// cached response (or run it and cache the response before returning it)
 func RunRequestIfNotCached(key string, req *gentleman.Request) (*gentleman.Response, error) {
 	res, found := Cache.Get(key)
 	if found {

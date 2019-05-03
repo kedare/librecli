@@ -8,6 +8,7 @@ import (
 	"github.com/kedare/librecli/network"
 )
 
+// GetDeviceByID will return the device that matches the given ID
 func GetDeviceByID(id int) entities.Device {
 	base := network.BuildAPIClient()
 	req := base.Request()
@@ -22,6 +23,7 @@ func GetDeviceByID(id int) entities.Device {
 	return getDevicesResponse.Devices[0]
 }
 
+// GetDevicesByParam will return all the devices that match the specified parameters
 func GetDevicesByParam(key string, value string) []entities.Device {
 	base := network.BuildAPIClient()
 	req := base.Request()
@@ -38,6 +40,7 @@ func GetDevicesByParam(key string, value string) []entities.Device {
 	return getDevicesResponse.Devices
 }
 
+// GetIPv4InterfacesByDevices will get the data of the interfaces associated to a specified device
 func GetIPv4InterfacesByDevice(hostname string) []entities.IPv4Address {
 	base := network.BuildAPIClient()
 	req := base.Request()
@@ -52,6 +55,7 @@ func GetIPv4InterfacesByDevice(hostname string) []entities.IPv4Address {
 	return getDeviceIPv4AddressesResponse.Addresses
 }
 
+// GetPortByID will get data for a specified port depending of the given ID
 func GetPortByID(id int) entities.Port {
 	base := network.BuildAPIClient()
 	req := base.Request()

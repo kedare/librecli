@@ -14,6 +14,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// ListBGPPeers is the command handler that will display the configured BGP peers/session on all the devices by default.
+// If a parameter is given, it can either be an ASN to filter by remote ASN or a device hostname to filter by device
 func ListBGPPeers(cmd *cobra.Command, args []string) {
 	base := network.BuildAPIClient()
 	req := base.Request()

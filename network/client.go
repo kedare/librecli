@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// BuildHTTPClient build the default HTTP client used in the application and inject a debug logging
 func BuildHTTPClient() *gentleman.Client {
 	base := gentleman.New()
 
@@ -18,6 +19,7 @@ func BuildHTTPClient() *gentleman.Client {
 	return base
 }
 
+// BuildAPIClient build the HTTP client used for LibreNMS, it automatically inject the base URL and authentication token.
 func BuildAPIClient() *gentleman.Client {
 	base := BuildHTTPClient()
 	baseURL := os.Getenv("LIBRECLI_URL")

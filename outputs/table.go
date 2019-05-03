@@ -5,6 +5,7 @@ import (
 	"github.com/apcera/termtables"
 )
 
+// OutputAsTable will display the data in a formatted table (Good for horizontal screens)
 func OutputAsTable(order []string, data []map[string]string) {
 	termtables.EnableUTF8PerLocale()
 	table := termtables.CreateTable()

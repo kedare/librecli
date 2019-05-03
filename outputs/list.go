@@ -6,6 +6,7 @@ import (
 	"text/tabwriter"
 )
 
+// OutputAsList will display the data in a list (good for vertical screens)
 func OutputAsList(order []string, data []map[string]string) {
 	w := tabwriter.NewWriter(os.Stdout, 1, 1, 1, ' ', tabwriter.TabIndent)
 

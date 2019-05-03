@@ -20,6 +20,7 @@ type BGPSession struct {
 	ContextName                string `json:"contextName"`
 }
 
+// ListBGPResponse represent an API response call to /api/v0/bgp
 type ListBGPResponse struct {
 	Status      string       `json:"status"`
 	Message     string       `json:"message"`
@@ -27,6 +28,7 @@ type ListBGPResponse struct {
 	Count       int          `json:"count"`
 }
 
+// BGPCounters represent BGP counters as they are returned by the LibreNMS API
 type BGPCounters struct {
 	DeviceID             int    `json:"device_id"`
 	BGPPeerIdentifier    string `json:"bgpPeerIdentifier"`
@@ -42,16 +44,19 @@ type BGPCounters struct {
 	WithdrawnPrefixes    int    `json:"WithdrawnPrefixes"`
 }
 
+// ListBGPCountersResponse represent an API response call to /api/v0/routing/bgp/cbgp
 type ListBGPCountersResponse struct {
 	Status      string        `json:"status"`
 	BGPCounters []BGPCounters `json:"bgp_counters"`
 	Count       int           `json:"count"`
 }
 
+// ASData represent the data associated with an AS
 type ASData struct {
 	Holder string `json:"holder"`
 }
 
+// ASInfoResponse represent the response to a query to https://stats.ripe.net/data/as-overview/data.json
 type ASInfoResponse struct {
 	Data ASData `json:"data"`
 }

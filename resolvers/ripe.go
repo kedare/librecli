@@ -7,6 +7,7 @@ import (
 	"github.com/kedare/librecli/network"
 )
 
+// GetASHolderByASN will run a query to RIPE NCC API to get the Holder name of a specified ASN
 func GetASHolderByASN(asn int) string {
 	if asn > 64512 && asn < 65535 {
 		return "Private ASN"

@@ -1,5 +1,6 @@
 package entities
 
+// Port represent a physical (or logical) port
 type Port struct {
 	ID               int    `json:"port_id"`
 	DeviceID         int    `json:"device_id"`
@@ -15,10 +16,13 @@ type Port struct {
 	AdminStatus      string `json:"ifAdminStatus"`
 }
 
+// GetPortResponse represents a response from /api/v0/port
 type GetPortsResponse struct {
 	Status string `json:"status"`
 	Ports  []Port `json:"port"`
 }
+
+// IPv4Address represent an IPv4 Address
 type IPv4Address struct {
 	IPv4AddressID int    `json:"ipv4_address_id"`
 	IPv4Address   string `json:"ipv4_address"`
@@ -29,6 +33,7 @@ type IPv4Address struct {
 	ContextName   string `json:"context_name"`
 }
 
+// GetDeviceIPv4AddressResponse represents a response from /api/v0/devices/:hostname:/ip
 type GetDeviceIPv4AddressesResponse struct {
 	Status    string        `json:"status"`
 	Message   string        `json:"message"`

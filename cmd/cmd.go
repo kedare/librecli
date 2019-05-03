@@ -5,7 +5,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// OutputFormat defines output format to be used to display the data
 var OutputFormat string
+
+// Verbose is the toggle to enable verbose logging
 var Verbose bool
 
 var cmdRoot = &cobra.Command{Use: "librecli"}
@@ -62,6 +65,7 @@ func setDebug(cmd *cobra.Command, args []string) {
 	}
 }
 
+// Setup is the function that will register all the CLI handlers and parameters
 func Setup(version string) {
 	cmdRoot.Version = version
 
