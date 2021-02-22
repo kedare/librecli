@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/kedare/librecli/entities"
 	"github.com/kedare/librecli/outputs"
@@ -12,12 +13,19 @@ import (
 
 // LookupIPv4 is the command handler that allows you to do a lookup in the centralized IPv4 database
 // The parameter to give is which IP you want to lookup
-func LookupIPv4(cmd *cobra.Command, args []string) {
+func LookupIP(cmd *cobra.Command, args []string) {
+
+	var devices []entities.Device
 
 	spinner := utils.NewSpinner()
 	spinner.Start()
 
-	devices := resolvers.GetDevicesByParam("ipv4", args[0])
+	if strings.Contains(args[0], ":") {
+		devices = resolvers.GetDevicesByParam("ipv6", args[0])
+	} else {
+		devices = resolvers.GetDevicesByParam("ipv4", args[0])
+	}
+
 	allDevicesInterfaces := []entities.IPv4Address{}
 
 	for _, device := range devices {

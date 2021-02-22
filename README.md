@@ -29,7 +29,7 @@ $ librecli ipsec sa list <hostname>
 $ librecli ipv6 lookup [IPv6 Address]
 $ librecli logs events tail [hostname] [counts]
 $ librecli logs syslogs tail [hostname] [counts]
-$ librecli sensors list <hostname> <Filter>
+$ librecli sensors list <hostname> <Filter> # Need API changes on LibreNMS, no way to filter by device on current version
 $ librecli links list [hostname]
 $ librecli alerts list <filters>
 $ librecli alerts ack [Alert ID...]

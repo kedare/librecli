@@ -47,15 +47,15 @@ var cmdFDBLookup = &cobra.Command{
 	Args:   cobra.MinimumNArgs(1),
 }
 
-var cmdIPv4 = &cobra.Command{
-	Use: "ipv4",
+var cmdIP = &cobra.Command{
+	Use: "ip",
 }
 
-var cmdIPv4Lookup = &cobra.Command{
-	Use:    "lookup [IPv4 address]",
-	Short:  "Lookup for an IPv4 address on the centralized IP table",
+var cmdIPLookup = &cobra.Command{
+	Use:    "lookup [IP address]",
+	Short:  "Lookup for an IP address on the centralized IP table",
 	PreRun: setDebug,
-	Run:    LookupIPv4,
+	Run:    LookupIP,
 	Args:   cobra.MinimumNArgs(1),
 }
 
@@ -78,8 +78,8 @@ func Setup(version string) {
 	cmdRoot.AddCommand(cmdFDB)
 	cmdFDB.AddCommand(cmdFDBLookup)
 
-	cmdRoot.AddCommand(cmdIPv4)
-	cmdIPv4.AddCommand(cmdIPv4Lookup)
+	cmdRoot.AddCommand(cmdIP)
+	cmdIP.AddCommand(cmdIPLookup)
 
 	cmdRoot.PersistentFlags().StringVarP(&OutputFormat, "format", "f", "table", "Output format: table|list|json")
 	cmdRoot.PersistentFlags().BoolVarP(&Verbose, "verbose", "V", false, "Enable verbose mode")
