@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	github.com/apcera/termtables v0.0.0-20170405184538-bcbc5dc54055
+	github.com/briandowns/spinner v1.12.0
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190417130405-e50442bb4cb5
 	github.com/mattn/go-runewidth v0.0.4 // indirect

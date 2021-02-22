@@ -3,10 +3,12 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/kedare/librecli/entities"
 	"github.com/kedare/librecli/network"
 	"github.com/kedare/librecli/outputs"
 	"github.com/kedare/librecli/resolvers"
+	"github.com/kedare/librecli/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -17,8 +19,12 @@ func LookupFDB(cmd *cobra.Command, args []string) {
 	req := base.Request()
 	req.Path(fmt.Sprintf("/api/v0/resources/fdb/%v", args[0]))
 
+	spinner := utils.NewSpinner()
+	spinner.Start()
+
 	res, err := req.Send()
 	if err != nil {
+		spinner.Stop()
 		fmt.Println(err)
 	}
 
@@ -35,5 +41,7 @@ func LookupFDB(cmd *cobra.Command, args []string) {
 			"VLAN":   fmt.Sprint(fdbPort.VlanID),
 		})
 	}
+
+	spinner.Stop()
 	outputs.OutputAs(OutputFormat, headers, data)
 }

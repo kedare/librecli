@@ -10,6 +10,7 @@ import (
 	"github.com/kedare/librecli/network"
 	"github.com/kedare/librecli/outputs"
 	"github.com/kedare/librecli/resolvers"
+	"github.com/kedare/librecli/utils"
 	"github.com/spf13/cobra"
 	"gopkg.in/h2non/gentleman.v2"
 )
@@ -23,6 +24,9 @@ func ListBGPCounters(cmd *cobra.Command, args []string) {
 
 	var res *gentleman.Response
 	var err error
+
+	spinner := utils.NewSpinner()
+	spinner.Start()
 
 	if len(args) > 0 {
 		// Try to get arg as ASN
@@ -41,6 +45,7 @@ func ListBGPCounters(cmd *cobra.Command, args []string) {
 
 	if err != nil {
 		fmt.Println(err)
+		spinner.Stop()
 	}
 
 	listBgpCountersResponse := entities.ListBGPCountersResponse{}
@@ -60,5 +65,7 @@ func ListBGPCounters(cmd *cobra.Command, args []string) {
 				"Adv Pfx":      colorizers.ShouldBeHigherThan(bgpCounter.AdvertisedPrefixes, 0),
 			})
 	}
+
+	spinner.Stop()
 	outputs.OutputAs(OutputFormat, headers, data)
 }
