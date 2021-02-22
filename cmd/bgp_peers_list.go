@@ -3,8 +3,9 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/h2non/gentleman.v2"
 	"strconv"
+
+	"gopkg.in/h2non/gentleman.v2"
 
 	"github.com/kedare/librecli/colorizers"
 	"github.com/kedare/librecli/entities"
@@ -32,7 +33,7 @@ func ListBGPPeers(cmd *cobra.Command, args []string) {
 			req.AddQuery("hostname", args[0])
 		} else {
 			// Conversion is good, this is an ASN
-			req.AddQuery("asn", fmt.Sprint(asn))
+			req.AddQuery("remote_asn", fmt.Sprint(asn))
 		}
 		res, err = network.RunRequestIfNotCached(fmt.Sprintf("nms.bgp:%v", args[0]), req)
 	} else {

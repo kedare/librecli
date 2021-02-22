@@ -1,10 +1,11 @@
 package network
 
 import (
+	"os"
+
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/h2non/gentleman.v2"
 	"gopkg.in/h2non/gentleman.v2/context"
-	"os"
 )
 
 // BuildHTTPClient build the default HTTP client used in the application and inject a debug logging
@@ -29,7 +30,7 @@ func BuildAPIClient() *gentleman.Client {
 	base.BaseURL(os.Getenv("LIBRECLI_URL"))
 
 	token := os.Getenv("LIBRECLI_TOKEN")
-	if token != "" {
+	if token == "" {
 		panic("LIBRECLI_TOKEN is not defined")
 	}
 

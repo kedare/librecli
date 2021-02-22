@@ -3,12 +3,15 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
+
 	"github.com/kedare/librecli/colorizers"
 	"github.com/kedare/librecli/entities"
 	"github.com/kedare/librecli/network"
 	"github.com/kedare/librecli/outputs"
 	"github.com/kedare/librecli/resolvers"
 	"github.com/spf13/cobra"
+	"gopkg.in/h2non/gentleman.v2"
 )
 
 // ListBGPCounters is the command handler that will display the counters coming from the BGP sessions.
@@ -18,11 +21,24 @@ func ListBGPCounters(cmd *cobra.Command, args []string) {
 	req := base.Request()
 	req.Path("/api/v0/routing/bgp/cbgp")
 
+	var res *gentleman.Response
+	var err error
+
 	if len(args) > 0 {
-		req.AddQuery("hostname", args[0])
+		// Try to get arg as ASN
+		asn, err := strconv.Atoi(args[0])
+		if err != nil {
+			// Failed to convert to INT, this is not an ASN, so this must be a device name
+			req.AddQuery("hostname", args[0])
+		} else {
+			// Conversion is good, this is an ASN
+			req.AddQuery("remote_asn", fmt.Sprint(asn))
+		}
+		res, err = network.RunRequestIfNotCached(fmt.Sprintf("nms.cbgp:%v", args[0]), req)
+	} else {
+		res, err = network.RunRequestIfNotCached("nms.cbgp", req)
 	}
 
-	res, err := req.Send()
 	if err != nil {
 		fmt.Println(err)
 	}
