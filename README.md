@@ -22,7 +22,7 @@ LIBRECLI_TOKEN = Your token
 $ librecli bgp peers list <hostname or remote ASN>
 $ librecli bgp peers counters <hostname>
 $ librecli fdb lookup [MAC address]
-$ librecli ipv4 lookup [IPv4 Address]
+$ librecli ip lookup [IPv4/IPv6 Address]
 
 // TODO
 $ librecli ipsec sa list <hostname>
